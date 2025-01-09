@@ -1,0 +1,7 @@
+.history
+*.tfvars
+*.tfstate
+*.tfstate.*
+.terraform.*
+.terraform
+*.txt
