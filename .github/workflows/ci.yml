@@ -1,0 +1,31 @@
+name: Build and Push Docker Image to Nexus
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Log in to Nexus Docker registry
+      - name: Log in to Nexus Docker registry
+        run: echo "${{ secrets.NEXUS_PASSWORD }}" | docker login ${{ secrets.NEXUS_REGISTRY }} --username ${{ secrets.NEXUS_USERNAME }} --password-stdin
+
+      # Step 3: Build Docker image
+      - name: Build Docker image
+        run: docker build -t ${{ secrets.NEXUS_REGISTRY }}/javawebapp/myjavawebapp:latest app/
+
+      # Step 4: Push Docker image to Nexus
+      - name: Push Docker image
+        run: docker push ${{ secrets.NEXUS_REGISTRY }}/javawebapp/myjavawebapp:latest
+
+      # Step 5: Log out from Docker registry
+      - name: Log out from Docker registry
+        run: docker logout ${{ secrets.NEXUS_REGISTRY }}
