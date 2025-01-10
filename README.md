@@ -210,7 +210,59 @@ Username: admin
 Password: prom-operator
 ```
 
----
+### **10. Deploy ArgoCD**
+
+Deploy ArgoCD using Helm
+
+```bash
+helm repo add argo https://argoproj.github.io/argo-helm
+
+helm repo update
+
+helm install argo argo/argo-cd
+```
+
+Port forward to localhost
+
+```bash
+kubectl port-forward service/argo-argocd-server -n default 8080:443
+```
+
+### Create a New Application in ArgoCD
+
+1. **Navigate to Applications**:
+
+   - After adding your repository, go to the **Applications** section from the left sidebar.
+
+2. **Create a New Application**:
+
+   - Click the **New App** button.
+
+3. **Application Configuration**:
+
+   - **Application Name**: Provide a name for your application, e.g., `my-app`.
+   - **Project**: Select `default` unless you've set up a custom project.
+   - **Sync Policy**: Set to manual or automatic depending on your needs.
+   - **Repository URL**: Choose the repository you added earlier.
+   - **Path**: Specify the path to the directory where your Kubernetes manifests or Helm chart are located, e.g., `k8s/`.
+   - **Cluster**: Choose the cluster where you want to deploy the application (usually the in-cluster Kubernetes context).
+   - **Namespace**: Enter the Kubernetes namespace where the application should be deployed, e.g., `default`.
+
+4. **Sync Options**:
+
+   - You can enable auto-sync to automatically deploy changes from the repository to the cluster.
+   - Optionally, enable self-heal and prune resources.
+
+5. **Create the Application**:
+   - Once all the fields are configured, click **Create** to create the application.
+
+### 5. Sync and Deploy the Application
+
+1. After the application is created, you will be redirected to the application dashboard.
+2. If you've set up auto-sync, ArgoCD will automatically deploy the application based on the configurations in the repository.
+3. If manual sync is enabled:
+   - Click on the **Sync** button to manually trigger the deployment.
+   - Monitor the sync status and logs to ensure the application is deployed correctly.
 
 ## Notes
 
