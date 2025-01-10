@@ -4,8 +4,11 @@ set -e
 
 # Variables
 TERRAFORM_DIR="terraform"
+# NEED TO BE CHANGED
+# Generate SSH Key using "ssh keygen" command
 PRIVATE_KEY="~/.ssh/id_rsa"
 VM_USER="johnydev"
+#-------------
 NEXUS_PORT=8081
 
 # Step 1: Accept the terms for the nexus image
@@ -29,7 +32,7 @@ if [ -z "$VM_IP" ]; then
   exit 1
 fi
 
-sleep 10s 
+sleep 20s 
 
 echo "VM Public IP: $VM_IP"
 
