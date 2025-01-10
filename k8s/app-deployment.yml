@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: javawebapp-deployment
+  labels:
+    app: javawebapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: javawebapp
+  template:
+    metadata:
+      labels:
+        app: javawebapp
+    spec:
+      containers:
+        - name: javawebapp
+          image: triple3a/javawebapp:latest
+          ports:
+            - containerPort: 8080
+          # Optional: environment variables, resource limits, etc.
+          # env:
+          #   - name: SPRING_PROFILES_ACTIVE
+          #     value: "prod"
+          # resources:
+          #   limits:
+          #     cpu: "500m"
+          #     memory: "512Mi"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: javawebapp-service
+  labels:
+    app: javawebapp
+spec:
+  selector:
+    app: javawebapp
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+      protocol: TCP
+  type: NodePort
+# Uncomment and customize this Ingress if you want external HTTP access.
+# Make sure your cluster has an Ingress Controller installed and configured.
+#
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: javawebapp-ingress
+#   annotations:
+#     # Example annotation for NGINX Ingress
+#     # nginx.ingress.kubernetes.io/rewrite-target: /$1
+# spec:
+#   rules:
+#     - host: your-domain.com
+#       http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: javawebapp-service
+#                 port:
+#                   number: 80
