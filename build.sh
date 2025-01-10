@@ -29,6 +29,8 @@ if [ -z "$VM_IP" ]; then
   exit 1
 fi
 
+sleep 10s 
+
 echo "VM Public IP: $VM_IP"
 
 echo "Nexus deployed successfully. Access it at http://$VM_IP:$NEXUS_PORT"
