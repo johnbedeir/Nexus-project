@@ -276,6 +276,16 @@ kubectl port-forward service/argo-argocd-server -n default 8080:443
    - Click on the **Sync** button to manually trigger the deployment.
    - Monitor the sync status and logs to ensure the application is deployed correctly.
 
+### **10. Destroy the Nexus VM**
+
+To destroy the whole terraform environment that was created for the `Nexus VM` just run the following script:
+
+```
+./destroy.sh
+```
+
+This should destroy the environment and make sure nothing is left on the Azure cloud.
+
 ## Notes
 
 - **Security**: Enable HTTPS on Nexus for secure communication.
