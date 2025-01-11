@@ -126,6 +126,8 @@ Access the application at `http://localhost:8080`.
 3. Select the repository or create a new one (e.g., `docker-hosted`).
 4. Enable **HTTP Port** (e.g., `8082`) and **Docker V1 API**.
 
+<img src=imgs/http.png>
+
 #### **Update Docker Daemon**
 
 Edit the `daemon.json` file on your system to include the Nexus registry:
@@ -141,6 +143,10 @@ Restart Docker:
 ```bash
 sudo systemctl restart docker
 ```
+
+### Also Navigate to `Nexus` go to `Settings` then choose `Realms` and set `Docker Bearer Token` to be `Active`
+
+<img src=imgs/docker.png>
 
 ---
 
@@ -189,6 +195,10 @@ Commit your changes to the repository. This triggers the GitHub Actions workflow
 1. Build the Docker image.
 2. Push the image to the Nexus registry.
 
+<img src=imgs/github-actions.png>
+
+<img src=imgs/nexus.png>
+
 ### **9. Deploy Monitoring**
 
 Deploy Monitoring stack using Helm
@@ -209,6 +219,8 @@ Using `k9s` Navigate to `svc` and at the service `kube-prometheus-stack-grafana`
 Username: admin
 Password: prom-operator
 ```
+
+<img src=imgs/grafana.png>
 
 ### **10. Deploy ArgoCD**
 

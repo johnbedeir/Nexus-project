@@ -24,6 +24,7 @@ resource "azurerm_virtual_machine" "nexus" {
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
+    delete_os_disk_on_termination = true
   }
 
   os_profile {
@@ -43,33 +44,3 @@ resource "azurerm_virtual_machine" "nexus" {
     environment = "dev"
   }
 }
-
-# resource "azurerm_linux_virtual_machine" "vm" {
-#   name                  = "${var.environment}-vm"
-#   resource_group_name   = azurerm_resource_group.rg.name
-#   location              = azurerm_resource_group.rg.location
-#   size                  = "Standard_DS1_v2"
-#   admin_username        = var.vmuser
-#   admin_ssh_key {
-#     username   = var.vmuser
-#     public_key = file("~/.ssh/id_rsa.pub")
-#   }
-
-#   os_disk {
-#     caching              = "ReadWrite"
-#     storage_account_type = "Standard_LRS"
-#   }
-
-#   source_image_reference {
-#     publisher = "Canonical"
-#     offer     = "UbuntuServer"
-#     sku       = "19_10-daily-gen2"
-#     version   = "19.10.202007100"
-#   }
-
-#   network_interface_ids = [azurerm_network_interface.nic.id]
-
-#   tags = {
-#     environment = "dev"
-#   }
-# }
